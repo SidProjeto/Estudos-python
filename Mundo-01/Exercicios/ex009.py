@@ -1,0 +1,6 @@
+print('\033[1:33m''Criador de tabuada')
+n = int(input('Digite o número '))
+print('=' * 2,'TABUADA','=' * 2)
+print(f'{'\033[1:37m'}{n} x 01 = {n * 1}\n{n} x 02 = {n * 2}\n{n} x 03 = {n * 3}\n{n} x 04 = {n * 4}\n{n} x 5 =  {n * 5}')
+print(f'{n} x 06 = {n * 6}\n{n} x 07 = {n * 7}\n{n} x 08 = {n * 8}\n{n} x 09 = {n * 9}\n{n} x 10 = {n * 10}')
+print('\033[1:33m''=' * 13)
