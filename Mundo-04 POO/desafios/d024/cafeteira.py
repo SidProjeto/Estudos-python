@@ -1,0 +1,55 @@
+from abc import ABC, abstractmethod
+
+
+class BebidaQuente(ABC):
+    def __init__(self):
+        None
+
+    def preparar(self):
+        print('--- Iniciando o Preparo ---')
+        self.ferver_agua()
+        self.misturar()
+        self.servir()
+        print('--- Bebida Pronta ---')
+
+    def ferver_agua(self):
+        print('1. Fervendo a 100 graus Celsius.')
+
+    @abstractmethod
+    def misturar(self):
+        pass
+
+    def servir(self):
+        pass
+
+
+class Cafe(BebidaQuente):
+    def __init__(self):
+        None
+
+    def misturar(self):
+        print('2. Passando água presurizada pelo pó de café moido.')
+
+    def servir(self):
+        print('3. Servindo em xícara pequena.')
+
+class Leite(BebidaQuente):
+    def __init__(self):
+        None
+
+    def misturar(self):
+        print('2. Passando vapor pressurizado pelo bico do leite.')
+
+    def servir(self):
+        print('3. Servindo na caneca grande, já com café.')
+
+
+class Cha(BebidaQuente):
+    def __init__(self):
+        None
+
+    def misturar(self):
+        print('2. Mergulhando o sachê de ervas na água.')
+
+    def servir(self):
+        print('3. Servindo na caneca de porcelona com limão.')
