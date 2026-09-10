@@ -1,14 +1,17 @@
 from salario import *
+from rich import inspect
 
 
 def main():
-    f1 = FuncionarioHorista("Paulo", 12, 200)
-    f1.calc_sal()
-    f1.analisar_cal()
+    f1 = FuncionarioHorista("Paulo", 25, 250)
+    f1.calc_salario()
+    f1.analisar_salario()
+    # inspect(f1)
 
-    f2 = FuncionarioMensalista("Amanda", 9500)
-    f2.calc_sal()
-    f2.analisar_cal()
+    f2 = FuncionarioMensalista("Amanda", 8500)
+    f2.calc_salario()
+    f2.analisar_salario()
+    # inspect(f2)
 
 
 if __name__ == "__main__":

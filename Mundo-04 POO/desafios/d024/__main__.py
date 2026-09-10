@@ -1,8 +1,15 @@
 from cafeteira import *
 
+
 def main():
-    bebida = Leite()
-    bebida.preparar()
+    b1 = Cafe()
+    b1.preparar()
+
+    b2 = Cha()
+    b2.preparar()
+
+    b3 = Leite()
+    b3.preparar()
 
 
 if __name__ == "__main__":
