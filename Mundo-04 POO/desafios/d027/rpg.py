@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from rich import print
+from rich.panel import Panel
 from random import randint, choice
 
 
@@ -39,6 +40,11 @@ class Personagem(ABC):
     @abstractmethod
     def curar(self):
         pass
+
+    def status(self):
+        tela = Panel(f'[blue]Nome:[/] [bold yellow]{self.nome}[/]\n[green]Vida:[/] [bold yellow]{self.vida}[/]\n[purple]Golpes:[/] [bold yellow]{self.golpes}[/]',title=f'[cyan]Status do {self.nome}[/]', width=60, border_style='cyan')
+        print(tela)
+
 
 
 class Guerreiro(Personagem):
