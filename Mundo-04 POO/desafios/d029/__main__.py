@@ -7,8 +7,11 @@ def main():
     d.escrever(f"Primeira mensagem")
     d.escrever(f"Você é uma pessoa simpática")
     d.escrever(f"Você gosta de Python")
-
-    d.ler("1234")
+    try:
+        d.ler("1234")
+        d.senha = (12, 13)
+    except Exception as e:
+        print(f"Erro: {e}")
     inspect(d, private=True, methods=True)
 
 

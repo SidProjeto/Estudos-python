@@ -3,9 +3,8 @@ from alunos import *
 
 
 def main():
-    a = Aluno("Maria", 2002, "ads")
-    a.adicionar_curso("moda")
-    a.curso = "moda"
+    a = Aluno("Maria", 2002, "kkk")
+    a.curso = "kkk"
 
     inspect(a, private=True, methods=True)
 

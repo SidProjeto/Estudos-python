@@ -13,13 +13,13 @@ class Credencial:
     def senha(self,valor):
         if type(valor) != str:
             valor = str(valor)
-        senha_criptografada = sha256(valor.encode()).hexdigest()
+        senha_criptografada = sha256(valor.encode('utf-8')).hexdigest()
         self.__hash = senha_criptografada
 
     def validar(self,chave):
         if type(chave) != str:
             chave = str(chave)
-        senha_criptografada = sha256(chave.encode()).hexdigest()
+        senha_criptografada = sha256(chave.encode('utf-8')).hexdigest()
         if senha_criptografada == self.__hash:
             return 'Senha Confere!\n[green]True[/]'
         else:

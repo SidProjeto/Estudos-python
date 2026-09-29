@@ -4,7 +4,7 @@ from rich import print, inspect
 
 def main():
     c = Credencial()
-    c.senha = "agua"
+    c.senha = "ag"
     inspect(c, private=True, methods=True)
     print(c.validar("agu"))
 

@@ -39,7 +39,7 @@ class Aluno(Pessoa):
             self._curso = curso
 
         else:
-            raise ValueError(f'O curso {curso} não está na lista de cursos oficiais')
+            raise ValueError(f"O curso {'curso'} não está na lista de cursos oficiais")
 
     def adicionar_curso(self, nome_curso: str):
         if 3 <= len(nome_curso) <= 5:
@@ -59,5 +59,5 @@ class Aluno(Pessoa):
             self._curso = curso
 
         else:
-            raise ValueError(f'O curso {curso} não está na lista de cursos oficiais')
+            raise ValueError(f"O curso '{curso}' não está na lista de cursos oficiais")
     
