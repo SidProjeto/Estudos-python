@@ -2,26 +2,36 @@ from hashlib import sha256
 from getpass import getpass
 
 class ContaBancaria:
-    def __init__(self, id: int, nome: str, saldo: float, senha: str = None):
+    def __init__(self, id: int, nome: str = None, saldo: float = 0, senha: str = None):
         self._id = id
         self._titular = nome
         self.__saldo = saldo
-        self.__hash = senha
-
         if not senha:
             senha = self.pede_senha()
-        senha = str(senha)
-        senha_criptografada = sha256(senha.encode()).hexdigest()
-        self.__hash = senha_criptografada
+
+        self.__hash = sha256(str(senha).encode()).hexdigest()
+
 
     def pede_senha(self) -> str:
-        senha = getpass('Senha: ', echo_char='*').strip()
+        while True:
+            msg = ''
+            senha = getpass('Senha: ', echo_char='*').strip()
+            if len(senha) >= 4:
+                break
+            else:
+                print('Senha tem que ter no mínimo 4 digitos')
+                while True:
+                    msg = input('deseja continuar ? [S/N]: ').upper().strip()
+                    if msg in "SN":
+                       break
+            if msg == 'N':
+                raise PermissionError('Operação cancelada pelo usuário')
+
         return senha
 
     def validar_senha(self, senha: str) -> bool:
-        senha = str(senha)
-        senha_criptografada = sha256(senha.encode()).hexdigest()
-        if senha_criptografada == self.__hash:
+        senha = sha256(str(senha).encode()).hexdigest()
+        if senha == self.__hash:
             return True
 
         else:
@@ -44,11 +54,11 @@ class ContaBancaria:
             self._titular = nome
 
         else:
-            print('Senha incorreta! Nome não alterado')
+            raise PermissionError('Senha incorreta! Nome não alterado')
 
     def depositar(self, valor: float):
         if valor <= 0:
-            print(f'Não é possivel depositar valores abaixo ou igual a 0')
+            raise ValueError(f'Não é possivel depositar valores abaixo ou igual a 0')
 
         else:
             self.__saldo += valor
@@ -57,23 +67,24 @@ class ContaBancaria:
 
     def sacar(self, valor: float, senha: str = None):
         if valor <= 0:
-            print('Valor invalido! para sacar')
+            raise ValueError('Valor invalido! para sacar')
 
         elif valor <= self.__saldo:
 
             if not senha:
                 print('Para efetuar o saque, coloque sua senha')
                 senha = self.pede_senha()
-
+            
             if self.validar_senha(senha):
                 print('Saque efetuado com sucesso!')
                 self.__saldo -= valor
 
             else:
-                print('Saque não efetuado! senha incorreta!')
+                raise PermissionError('Saque não efetuado! senha incorreta!')
 
         else:
-            print('Saldo insuficiente!')
-
-
+            raise ValueError('Saldo insuficiente!')
+        
+    def __str__(self):
+        return f'A conta {self.id} de {self._titular} tem R${self.__saldo:,.2f} de __saldo'
    

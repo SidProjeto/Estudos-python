@@ -4,10 +4,14 @@ from rich import print, inspect
 
 def main():
     r = Retangulo()
-    r.altura = 33
-    r.base = 23
-    r.medidas = (9, 3)
-    inspect(r, private=True, methods=True)
+    try:
+        r.base = 2
+        r.altura = 3
+        r.medidas = (3, 4)
+
+    except Exception as e:
+        print(f"Ocorreu um erro do tipo {type(e).__name__}: {e}")
+
     print(r.medidas)
 
 

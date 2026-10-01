@@ -3,7 +3,7 @@ from datetime import date
 
 class Pessoa(ABC):
     ano_limite = date.today().year - 130
-    def __init__(self,nome, ano):
+    def __init__(self,nome: str, ano: int):
         self._nome = nome
 
         if Pessoa.ano_limite <= ano <= date.today().year:
@@ -17,7 +17,7 @@ class Pessoa(ABC):
         return self._nascimento
 
     @nascimento.setter
-    def nascimento(self, ano):
+    def nascimento(self, ano: int):
         ano = abs(ano)
         if Pessoa.ano_limite <= ano <= date.today().year:
             self._nascimento = ano
@@ -29,6 +29,10 @@ class Pessoa(ABC):
     def idade(self):
         return date.today().year - self._nascimento
 
+    @idade.setter
+    def idade(self, valor: int):
+        raise PermissionError('Idade não pode ser alterada')
+
 
 class Aluno(Pessoa):
     cursos_oficiais = ['ADM', 'ADS', 'ENG', 'CONT']
@@ -39,14 +43,17 @@ class Aluno(Pessoa):
             self._curso = curso
 
         else:
-            raise ValueError(f"O curso {'curso'} não está na lista de cursos oficiais")
+            raise ValueError(f"O curso '{curso}' não está na lista de cursos oficiais")
 
     def adicionar_curso(self, nome_curso: str):
         if 3 <= len(nome_curso) <= 5:
             nome_curso = nome_curso.upper()
-            Aluno.cursos_oficiais.append(nome_curso)
+            if nome_curso in Aluno.cursos_oficiais:
+                raise ValueError('Esse curso ja está na lista')
+            else:
+                Aluno.cursos_oficiais.append(nome_curso)
         else:
-            print('encurte nome do curso!')
+            raise ValueError('encurte nome do curso!')
 
     @property
     def curso(self):
