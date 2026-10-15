@@ -1,11 +1,11 @@
-from abc import ABC, abstractmethods
+from abc import ABC, abstractmethod
 
 class Funcionario(ABC):
     def __init__(self, nome: str = '', salario: int|float = 0):
         self.nome = nome
         self.__salario = salario
 
-    @abstractmethods
+    @abstractmethod
     def calcular_bonus(self) -> float:
         pass
 
@@ -27,6 +27,10 @@ class Funcionario(ABC):
         
         self.__salario = salario
 
+    def __str__(self):
+        return f'{self.nome} ganha R${self.salario:.2f} e por ser {self.__class__.__name__} o bônus será de R${self.calcular_bonus():,.2f}'
+    
+
 class Gerente(Funcionario):
     taxa_bonus = 0.15
     
@@ -36,9 +40,7 @@ class Gerente(Funcionario):
     def calcular_bonus(self) -> float:
         bonus = self.salario * Gerente.taxa_bonus
         return bonus
-    
-    def __str__(self):
-        return f'{self.nome} ganha R${self.salario:,.2f} e por ser {self.__class__.__name__} o bônus será de R${self.calcular_bonus():,.2f}'
+
 
 class Designer(Funcionario):
     taxa_bonus = 0.08
@@ -49,9 +51,6 @@ class Designer(Funcionario):
     def calcular_bonus(self) -> float:
         bonus = self.salario * Designer.taxa_bonus
         return bonus
-    
-    def __str__(self):
-        return f'{self.nome} ganha R${self.salario:.2f} e por ser {self.__class__.__name__} o bônus será de R${self.calcular_bonus():,.2f}'
 
 
 class Desenvolvedor(Funcionario):
@@ -63,6 +62,3 @@ class Desenvolvedor(Funcionario):
     def calcular_bonus(self) -> float:
         bonus = self.salario * Desenvolvedor.taxa_bonus
         return bonus
-    
-    def __str__(self):
-        return f'{self.nome} ganha R${self.salario:.2f} e por ser {self.__class__.__name__} o bônus será de R${self.calcular_bonus():,.2f}'
