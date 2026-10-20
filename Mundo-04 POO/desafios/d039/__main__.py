@@ -3,7 +3,7 @@ from classes import *
 
 def main():
     validar_dado(Usuario(), "gus1234")
-    validar_dado(Email(), "fbhf@g.com")
+    validar_dado(Email(), "fbhf+@g.com")
     validar_dado(Senha(), "Te#stando7")
 
 

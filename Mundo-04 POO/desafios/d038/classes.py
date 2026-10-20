@@ -1,8 +1,3 @@
-from locale import setlocale, LC_ALL, currency
-
-setlocale(LC_ALL, "pt_BR.UTF-8")
-
-
 class Carrinho:
     def __init__(self):
         self.produtos = []
@@ -13,8 +8,7 @@ class Carrinho:
         for produto in self.produtos:
             total += produto.preco
 
-        return currency(total, grouping=True)
-
+        return formatar_din(total)
 
     def __add__(self, produto):
         novo_carrinho = Carrinho()
@@ -27,8 +21,10 @@ class Carrinho:
             novo_carrinho.produtos.append(produto)
 
         else:
-            raise TypeError(f'Não é possivel somar ao carrinho o {type(produto).__name__}')
-        
+            raise TypeError(
+                f"Não é possivel somar ao carrinho o {type(produto).__name__}"
+            )
+
         return novo_carrinho
 
     def __iadd__(self, produto):
@@ -39,38 +35,46 @@ class Carrinho:
             self.produtos.append(produto)
 
         else:
-            raise TypeError(f'Não é possivel somar ao carrinho o {type(produto).__name__}')
-        
+            raise TypeError(
+                f"Não é possivel somar ao carrinho o {type(produto).__name__}"
+            )
+
         return self
 
     def __str__(self):
-        msg = f"{30*'-'}\n"
+        msg = f"{30 * '-'}\n"
 
         for produto in self.produtos:
             msg += f"{produto}\n"
 
-        msg += f"{30*'-'}\n"
+        msg += f"{30 * '-'}\n"
         msg += f"Total: {self.total}\n"
 
         return msg
 
 
 class Produto:
-    def __init__(self, nome, preco):
+    def __init__(self, nome:str, preco:float):
         self.nome = nome
 
         if isinstance(preco, bool):
-            raise ValueError(f'Valor invalido!')
-        
+            raise TypeError("Tipo invalido!")
+
         try:
             self.preco = float(preco)
 
         except (ValueError, TypeError):
-            raise ValueError(f'Valor invalido!')
-
+            raise ValueError("Valor invalido!")
 
     def __str__(self):
-        return f"{self.nome} ({currency(self.preco, grouping=True)})"
+        return f"{self.nome} ({formatar_din(self.preco)})"
 
     def __repr__(self):
         return self.__str__()
+
+
+def formatar_din(valor):
+    from locale import LC_ALL, currency, setlocale
+    setlocale(LC_ALL, "pt_BR.UTF-8")
+    return currency(valor, grouping=True)
+

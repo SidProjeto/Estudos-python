@@ -1,7 +1,3 @@
-import json
-import xml.etree.ElementTree as ET
-import xml.dom.minidom as minidom
-
 class Aluno:
     def __init__(self, nome, curso, serie):
         self.nome = nome
@@ -17,7 +13,10 @@ class Usuario:
 
 class JSON:
     def exportar(self, valor):
-        return json.dumps(
+        from json import dumps
+
+
+        return dumps(
             valor,
             default= lambda obj: obj.__dict__,
             indent=4,
@@ -28,6 +27,10 @@ class JSON:
 
 class XML:
     def exportar(self, valor):
+        import xml.etree.ElementTree as ET
+        from xml.dom import minidom
+
+
         raiz = ET.Element('dados')
         lista = valor if isinstance(valor, list) else [valor]
 
@@ -38,8 +41,7 @@ class XML:
             for chave, dvalor in objeto.__dict__.items():
                 sub_tag = ET.SubElement(tag_item, chave)
                 sub_tag.text = str(dvalor)
-
-        xml = ET.tostring(raiz, encoding='utf-8')
+        xml = ET.tostring(raiz, encoding='utf-8',xml_declaration=True)
         dom = minidom.parseString(xml)
         xml_organizado = dom.toprettyxml(indent='    ', encoding='utf-8')
 
